@@ -11,30 +11,25 @@ const categories = [
 
 export default function TopBar() {
   return (
-    <div className="flex flex-col gap-4 py-4 px-8 bg-white justify-center items-center">   
+    <div className="flex items-center gap-6 py-6 px-10 bg-white">
+      {/* Logo/avatar */}
+      <div className="w-14 h-14 rounded-full bg-[#d6eef4] flex items-center justify-center">
+        {/* Replace with your logo image if you have one */}
+        <span className="font-bold text-xs text-[#445b70]">BOOK<br />MARK</span>
+      </div>
       {/* Search Bar */}
-      <div className="flex items-center gap-2 bg-[#eaf2f5] rounded-full px-4 py-2 w-200 ">
-        <FaSearch className="text-gray-400" />
+      <div className="flex items-center flex-1 bg-[#d6eef4] rounded-full px-6 py-3">
+        <FaSearch className="text-[#445b70] mr-3" />
         <input
           type="text"
-          placeholder="Find book"
-          className="bg-transparent outline-none flex-1 text-gray-700"
+          placeholder="find book"
+          className="bg-transparent outline-none flex-1 text-white placeholder-white font-semibold"
         />
-        <button className="bg-[#445b70] text-white px-5 py-2 rounded-full ml-2">
-          Search
-        </button>
       </div>
-      {/* Categories */}
-      <div className="flex gap-6 mt-2">
-        {categories.map((cat) => (
-          <button
-            key={cat.name}
-            className="text-[#445b70] font-medium hover:underline"
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
+      {/* Search Button */}
+      <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-4 shadow hover:bg-[#445b70] transition">
+        search
+      </button>
     </div>
   );
 }

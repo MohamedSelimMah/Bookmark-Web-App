@@ -1,23 +1,25 @@
 import React from "react";
+import girlReading from "../assets/girl-reading-book-illustration-download-in-svg-png-gif-file-formats--female-student-read-books-lover-pack-school-education-illustrations-3238408.webp";
 
 export default function HeroSection() {
   return (
-    <section className="bg-[#eaf2f5] rounded-xl my-6 mx-8 flex items-center p-8">
-      {/* Illustration placeholder */}
-      <div className="w-1/3 flex justify-center">
-        {/* Replace this div with an <img> for your illustration */}
-        <div className="w-40 h-40 bg-blue-200 rounded-full flex items-center justify-center">
-          <span className="text-6xl text-blue-400">📚</span>
-        </div>
+    <section className="bg-[#D0E7ED] rounded-xl my-6 mx-8 flex items-center p-8">
+      {/* Illustration */}
+      <div className="flex-shrink-0">
+        <img
+          src={girlReading}
+          alt="Girl reading"
+          className="max-h-75 w-auto"
+        />
       </div>
       {/* Text content */}
-      <div className="flex-1 pl-10">
-        <h2 className="text-3xl font-bold text-[#445b70] mb-2">Read.<br />Listen.<br />Enjoy.</h2>
-        <p className="text-[#445b70] mb-4">
-          Read, listen, and track your progress effortlessly. Personalize, share, and enjoy—your books, your way.
+      <div className="flex-1 pl-12 text-center">
+        <h2 className="text-3xl font-extrabold text-[#917F74] mb-2 ">Read.<br />Listen. Enjoy.</h2>
+        <p className="text-[#917F74] mb-4">
+          Read, listen, and track your progress<br/> effortlessly. Personalize, share, and<br/> enjoy—your books, your way
         </p>
-        <button className="bg-[#445b70] text-white px-6 py-2 rounded-full font-semibold shadow hover:bg-[#223344] transition">
-          View Out
+        <button className="bg-[#617886] text-white px-6 py-2 rounded-full font-semibold shadow hover:bg-[#223344] transition">
+          view out
         </button>
       </div>
     </section>

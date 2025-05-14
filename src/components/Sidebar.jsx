@@ -3,7 +3,7 @@ import { FaHeart, FaList, FaUserCircle } from "react-icons/fa";
 
 export default function Sidebar() {
   return (
-    <aside className="flex flex-col items-center bg-[#ccffff] w-20 h-full min-h-screen py-6 justify-between">
+    <aside className="flex flex-col items-center bg-[#D0E7ED] w-20 h-full min-h-screen py-6 justify-between">
       {/* User Avatar */}
       <div>
         <FaUserCircle className="text-4xl text-gray-400 mb-10" />
@@ -18,7 +18,7 @@ export default function Sidebar() {
         </button>
       </nav>
       {/* Subscribe Button */}
-      <button className="bg-[#445b70] text-white rounded-none rotate-[-90deg] my-8 px-4 py-2">
+      <button className="bg-[#445b70] text-white rounded-full rotate-[-90deg] my-8 px-4 py-2">
         Subscribe
       </button>
     </aside>

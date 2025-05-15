@@ -3,7 +3,7 @@ import girlReading from "../assets/girl-reading-book-illustration-download-in-sv
 
 export default function HeroSection() {
   return (
-    <section className="bg-[#D0E7ED] rounded-xl my-6 mx-8 flex items-center p-8">
+    <section className="bg-[#d6eef4] rounded-xl my-6 mx-8 flex items-center p-8">
       {/* Illustration */}
       <div className="flex-shrink-0">
         <img

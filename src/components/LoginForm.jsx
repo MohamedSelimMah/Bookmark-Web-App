@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import bookmark from "../assets/bookmark.png";
 
 export default function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -16,28 +17,54 @@ export default function LoginForm({ onLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      {error && <div className="mb-2 text-red-600">{error}</div>}
-      <input
-        type="email"
-        placeholder="Email"
-        className="block w-full mb-3 p-2 border rounded"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="block w-full mb-3 p-2 border rounded"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-        Login
-      </button>
-    </form>
+    <div className="min-h-screen flex bg-white">
+      {/* Left: Login */}
+      <div className="flex-1 flex flex-col justify-center items-center px-8 py-12 relative">
+        {/* Logo */}
+        <div className="absolute top-8 left-8 flex items-center gap-2">
+          <img src={bookmark} alt="Logo" className="w-25 h-25" />
+          <span className="font-bold text-2xl text-[#445b70]">BookMark</span>
+        </div>
+        <div className="w-full max-w-xl ">
+          <h1 className="text-5xl font-extrabold text-[#222] mb-8">Login to Your Account</h1>
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+            {error && <div className="mb-2 text-red-600 text-center">{error}</div>}
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full px-4 py-3 rounded-full bg-[#d6eef4] border-none focus:ring-2 focus:ring-[#617886] text-[#445b70] font-semibold placeholder-[#617886] transition"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 rounded-full bg-[#d6eef4] border-none focus:ring-2 focus:ring-[#617886] text-[#445b70] font-semibold placeholder-[#617886] transition"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="w-full bg-[#617886] text-white py-3 rounded-full font-bold shadow hover:bg-[#445b70] transition"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+      {/* Right: Register Prompt */}
+      <div className="hidden md:flex flex-col justify-center items-center w-[480px] bg-gradient-to-br from-[#d6eef4] to-[#617886] text-white relative overflow-hidden">
+        <h2 className="text-4xl font-extrabold mb-4">New Here?</h2>
+        <p className="mb-10 text-center px-10 text-xl">Sign up and discover a great amount of new opportunities!</p>
+        <a
+          href="/register"
+          className="bg-white text-[#617886] font-bold px-14 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg"
+        >
+          Sign Up
+        </a>
+      </div>
+    </div>
   );
 }

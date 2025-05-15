@@ -1,4 +1,4 @@
-// pages/LoginPage.jsx
+import React from "react";
 import LoginForm from "../components/LoginForm";
 import { login } from "../services/authService";
 
@@ -6,7 +6,7 @@ export default function LoginPage() {
   const handleLogin = async (credentials) => {
     try {
       const data = await login(credentials);
-      localStorage.setItem("token", data.token); // Save JWT
+      localStorage.setItem("token", data.token);
       alert("Login successful");
       // Navigate to home or dashboard
     } catch (error) {
@@ -14,5 +14,7 @@ export default function LoginPage() {
     }
   };
 
-  return <LoginForm onLogin={handleLogin} />;
+  return (
+    <LoginForm onLogin={handleLogin} />
+  );
 }

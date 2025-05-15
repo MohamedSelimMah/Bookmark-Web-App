@@ -1,12 +1,67 @@
-# React + Vite
+# Django Authentication API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project implements a simple authentication system to manage **user registration** and **login** functionality using Django.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Registration**: Allows users to register with necessary account details.
+- **User Login**: Handles user authentication and login process.
+- **API Driven**: Based on Django CBVs (Class-Based Views) for clean and modular code.
 
-## Expanding the ESLint configuration
+## Endpoints
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The following endpoints are available:
+
+1. **Register**
+   - **URL**: `/register/`
+   - **Method**: `POST`
+   - **Description**: Allows users to register by sending their details (e.g., username, email, password).
+
+2. **Login**
+   - **URL**: `/login/`
+   - **Method**: `POST`
+   - **Description**: Authenticates a user and returns a session or token for further API interactions.
+
+## Project Structure
+my_project/ ├── my_project/ │ ├── settings.py # Django settings │ ├── urls.py # Global URL configuration │ └── wsgi.py # WSGI application entry point ├── app_name/ │ ├── views.py # Contains RegisterView and LoginView │ ├── urls.py # App-specific URL configuration (register and login routes) │ ├── models.py # Database models for user management │ ├── serializers.py # (Optional) Handles API data validation and serialization │ └── tests.py # Unit tests for the application └── manage.py # Django management script
+
+## Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/username/repo-name.git
+cd repo-name
+```
+
+### 2. Create and Activate a Virtual Environment
+```bash
+python -m venv env
+source env/bin/activate    # On Windows use: `env\Scripts\activate`
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run Migrations
+```bash
+python manage.py migrate
+```
+
+### 5. Start the Development Server
+```bash
+python manage.py runserver
+```
+
+### 6. Test the Endpoints
+Use tools like [Postman](https://www.postman.com/) or [curl](https://curl.se/) to test the `/register/` and `/login/` endpoints.
+
+## Usage
+
+- The **RegisterView** and **LoginView** are imported into `urls.py` and mapped directly to the respective endpoints to handle user actions.
+- Customize or extend the views to include token-based authentication or additional fields based on your project requirements.
+
+## Contributions
+
+Contributions are welcome! Feel free to fork the repository and submit pull requests.

@@ -5,14 +5,14 @@ import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
 
 const myListBooks = [
-  { id: 1, cover: "https://covers.openlibrary.org/b/id/10523338-L.jpg", title: "Reflected in You", author: "Sylvia Day" },
-  { id: 2, cover: "https://covers.openlibrary.org/b/id/10523339-L.jpg", title: "Enwined with You", author: "Sylvia Day" },
-  { id: 3, cover: "https://covers.openlibrary.org/b/id/10523340-L.jpg", title: "Sylvia Day", author: "Sylvia Day" },
+  { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day"},
+  { id: 2, cover: "src/assets/a0665e6c79eb920a_400x400ar.jpg", title: "Enwined with You", author: "Sylvia Day" },
+  { id: 3, cover: "src/assets/BaredToYou_cover_hires.jpg", title: "Bared To You", author: "Sylvia Day" },
 ];
 
 const popularBooks = [
-  { id: 4, cover: "https://covers.openlibrary.org/b/id/10523341-L.jpg", title: "Yellowface", author: "R.F. Kuang" },
-  { id: 5, cover: "https://covers.openlibrary.org/b/id/10523342-L.jpg", title: "Happy Place", author: "Emily Henry" },
+  { id: 4, cover: "src/assets/62047984.jpg", title: "Yellowface", author: "R.F. Kuang" },
+  { id: 5, cover: "src/assets/images.jpg", title: "Twisted Love", author: "Ana Huang" },
 ];
 
 export default function HomePage() {

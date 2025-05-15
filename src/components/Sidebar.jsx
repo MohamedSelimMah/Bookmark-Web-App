@@ -5,7 +5,7 @@ export default function Sidebar() {
   return (
     <aside className="flex flex-col items-center bg-[#d6eef4] w-20 h-full min-h-screen py-6 justify-between">
       {/* User Avatar */}
-      <button className="rounded-full ">
+      <button className="rounded-full">
         <FaUserCircle className="text-4xl text-gray-400 " />
       </button>
       {/* Navigation Icons */}

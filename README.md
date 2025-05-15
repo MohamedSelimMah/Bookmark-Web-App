@@ -22,9 +22,6 @@ The following endpoints are available:
    - **Method**: `POST`
    - **Description**: Authenticates a user and returns a session or token for further API interactions.
 
-## Project Structure
-my_project/ ├── my_project/ │ ├── settings.py # Django settings │ ├── urls.py # Global URL configuration │ └── wsgi.py # WSGI application entry point ├── app_name/ │ ├── views.py # Contains RegisterView and LoginView │ ├── urls.py # App-specific URL configuration (register and login routes) │ ├── models.py # Database models for user management │ ├── serializers.py # (Optional) Handles API data validation and serialization │ └── tests.py # Unit tests for the application └── manage.py # Django management script
-
 ## Installation
 
 ### 1. Clone the Repository

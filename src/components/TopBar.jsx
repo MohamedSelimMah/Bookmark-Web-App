@@ -1,5 +1,6 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import bookmark from "../assets/bookmark.png"; 
 
 const categories = [
   { name: "All" },
@@ -13,9 +14,8 @@ export default function TopBar() {
   return (
     <div className="flex items-center gap-6 py-6 px-10 bg-white">
       {/* Logo/avatar */}
-      <div className="w-14 h-14 rounded-full bg-[#d6eef4] flex items-center justify-center">
-        {/* Replace with your logo image if you have one */}
-        <span className="font-bold text-xs text-[#445b70]">BOOK<br />MARK</span>
+      <div className="w-15 h-15 rounded-full bg-[#d6eef4] flex items-center justify-center overflow-hidden">
+        <img src={bookmark} alt="Bookmark Logo" className="w-16 h-16 object-contain" />
       </div>
       {/* Search Bar */}
       <div className="flex items-center flex-1 bg-[#d6eef4] rounded-full px-6 py-3">
@@ -27,7 +27,7 @@ export default function TopBar() {
         />
       </div>
       {/* Search Button */}
-      <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-4 shadow hover:bg-[#445b70] transition">
+      <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-2   shadow hover:bg-[#445b70] transition">
         search
       </button>
     </div>

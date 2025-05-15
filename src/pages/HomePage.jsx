@@ -23,7 +23,7 @@ export default function HomePage() {
         <Sidebar />
       </div>
       {/* Main Content */}
-      <main className="ml-20 h-screen w-full overflow-y-auto bg-white">
+      <main className="ml-20 min-h-screen bg-white overflow-y-auto ">
         <TopBar />
         <HeroSection />
         <BookList title="My List" books={myListBooks} showAdd />

@@ -3,17 +3,20 @@ import React from "react";
 export default function BookCard({ cover, title, author, isAdd }) {
   if (isAdd) {
     return (
-      <div className="w-28 h-40 flex items-center justify-center bg-[#eaf2f5] rounded-xl border-2 border-dashed border-gray-300 cursor-pointer">
-        <span className="text-4xl text-gray-400">+</span>
+      <div className="w-28 min-w-[7rem] flex-shrink-0">
+        <div className="rounded-md overflow-hidden shadow-md bg-[#eaf2f5] flex items-center justify-center h-46 border-2 border-dashed border-gray-300 cursor-pointer">
+          <span className="text-4xl text-gray-400">+</span>
+        </div>
       </div>
     );
   }
   return (
-    <div className="w-28 h-40 bg-white rounded-xl shadow flex flex-col overflow-hidden">
-      <img src={cover} alt={title} className="h-28 w-full object-cover" />
-      <div className="p-2 flex-1 flex flex-col justify-between">
-        <div className="text-xs font-semibold text-[#445b70] truncate">{title}</div>
-        <div className="text-[10px] text-gray-500 truncate">{author}</div>
+    <div className="w-28 min-w-[7rem] flex-shrink-0">
+      <div className="rounded-md overflow-hidden shadow-md bg-white">
+        <img src={cover} alt={title} className="w-full h-40 object-cover" />
+        <div className="bg-[#f5f5f5] text-xs text-center py-1 font-semibold text-gray-700 rounded-b-md truncate">
+          {title}
+        </div>
       </div>
     </div>
   );

@@ -5,9 +5,9 @@ import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
 
 const myListBooks = [
-  { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day"},
-  { id: 2, cover: "src/assets/a0665e6c79eb920a_400x400ar.jpg", title: "Enwined with You", author: "Sylvia Day" },
-  { id: 3, cover: "src/assets/BaredToYou_cover_hires.jpg", title: "Bared To You", author: "Sylvia Day" },
+  { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
+  { id: 2, cover: "src/assets/a0665e6c79eb920a_400x400ar.jpg", title: "Enwined with You", author: "Sylvia Day",progress: 50 },
+  { id: 3, cover: "src/assets/BaredToYou_cover_hires.jpg", title: "Bared To You", author: "Sylvia Day" , progress: 30},
 ];
 
 const popularBooks = [

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import bookmark from "../assets/bookmark.png";
+import axios from "axios";
 
-export default function RegisterForm({ onRegister }) {
+export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -15,7 +16,18 @@ export default function RegisterForm({ onRegister }) {
       return;
     }
     try {
-      await onRegister({ email, password });
+      const response = await axios.post("http://localhost:8000/api/auth/register/", {
+        email,
+        password,
+      });
+      // If backend returns JWT tokens on registration, store them:
+      if (response.data.access) {
+        localStorage.setItem("accessToken", response.data.access);
+        window.location.href = "/"; // Redirect to home page after registration
+      } else {
+        // Registration successful but no token returned
+        window.location.href = "/login";
+      }
     } catch (err) {
       setError("Registration failed");
     }
@@ -78,7 +90,6 @@ export default function RegisterForm({ onRegister }) {
           </form>
         </div>
       </div>
-      
     </div>
   );
 }

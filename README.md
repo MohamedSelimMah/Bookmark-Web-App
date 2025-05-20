@@ -1,4 +1,4 @@
-# Django Authentication API
+# Django Authentication API 
 
 This project implements a simple authentication system to manage **user registration** and **login** functionality using Django.
 

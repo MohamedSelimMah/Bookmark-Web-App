@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import bookmark from "../assets/bookmark.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import bookmark from "../assets/bookmark.png";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ export default function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,21 +20,13 @@ export default function RegisterForm() {
     }
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/api/auth/register/", {
+      await axios.post("http://localhost:8000/api/auth/register/", {
         email,
         password,
       });
-      if (response.data.access) {
-        localStorage.setItem("accessToken", response.data.access);
-        window.location.href = "/";
-      } else {
-        window.location.href = "/login";
-      }
+      navigate("/login");
     } catch (err) {
-      setError(
-        err.response?.data?.detail ||
-        "Registration failed. Please try again."
-      );
+      setError("Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }

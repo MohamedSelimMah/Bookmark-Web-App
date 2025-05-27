@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from .models import Book
+from .models import Book, UserBookList, BookProgress
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -34,4 +34,16 @@ class LoginSerializer(serializers.Serializer):
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
+        fields = '__all__'
+
+
+class UserBookListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserBookList
+        fields = '__all__'
+
+
+class BookProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookProgress
         fields = '__all__'

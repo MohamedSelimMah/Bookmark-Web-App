@@ -1,13 +1,21 @@
-import axios from "axios";
+const API_URL = "http://localhost:8000/api/auth/";
 
-const API_URL = "http://localhost:8000/api/auth/"; // Adjust if your backend URL is different
+export async function login(credentials) {
+  const response = await fetch(`${API_URL}login/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+  if (!response.ok) throw new Error("Login failed");
+  return response.json();
+}
 
-export const login = async (email, password) => {
-  const response = await axios.post(`${API_URL}login/`, { email, password });
-  return response.data; // Should return { access, refresh }
-};
-
-export const register = async (email, password) => {
-  const response = await axios.post(`${API_URL}register/`, { email, password });
-  return response.data;
-};
+export async function register(credentials) {
+  const response = await fetch(`${API_URL}register/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(credentials),
+  });
+  if (!response.ok) throw new Error("Registration failed");
+  return response.json();
+}

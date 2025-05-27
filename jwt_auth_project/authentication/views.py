@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import serializers
+from rest_framework import viewsets
+from .models import Book
+from .serializers import BookSerializer
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -42,3 +45,8 @@ class LoginView(APIView):
                 'access': str(refresh.access_token),
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import bookmark from "../assets/bookmark.png";
 
 export default function RegisterForm() {
+  const [username, setUsername] = useState(""); // Add username state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,6 +22,7 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       await axios.post("http://localhost:8000/api/auth/register/", {
+        username, // Send username
         email,
         password,
       });
@@ -56,6 +58,15 @@ export default function RegisterForm() {
           <h1 className="text-3xl sm:text-5xl font-extrabold text-[#222] mb-8">Create Your Account</h1>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
             {error && <div className="mb-2 text-red-600 text-center">{error}</div>}
+            <input
+              type="text"
+              placeholder="Username"
+              className="w-full px-4 py-3 sm:py-4 rounded-full bg-[#d6eef4] border-none focus:ring-2 focus:ring-[#617886] text-[#445b70] font-semibold placeholder-[#617886] transition text-base sm:text-lg"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              required
+              disabled={loading}
+            />
             <input
               type="email"
               placeholder="Email"

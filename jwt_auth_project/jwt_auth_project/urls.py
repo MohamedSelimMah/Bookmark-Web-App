@@ -19,5 +19,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('authentication.urls')),  # Add this line
+    path('api/auth/', include('authentication.urls')),  # Use 'authentication' not 'accounts'
 ]
+
+INSTALLED_APPS = [
+    # ...other apps...
+    'authentication',
+    'rest_framework',
+    # ...etc...
+]
+

@@ -1,12 +1,19 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import RegisterView, BookViewSet, UserBookListViewSet, BookProgressViewSet
+from .views import BookClubViewSet, BookClubMembershipViewSet
+from .views import NotificationViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .views import UserActivityViewSet
 
 router = DefaultRouter()
 router.register(r'books', BookViewSet, basename='book')
 router.register(r'user-book-list', UserBookListViewSet, basename='userbooklist')
 router.register(r'book-progress', BookProgressViewSet, basename='bookprogress')
+router.register(r'book-clubs', BookClubViewSet, basename='bookclub')
+router.register(r'book-club-memberships', BookClubMembershipViewSet, basename='bookclubmembership')
+router.register(r'notifications', NotificationViewSet, basename='notification')
+router.register(r'user-activities', UserActivityViewSet, basename='useractivity')
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),

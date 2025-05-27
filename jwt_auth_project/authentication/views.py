@@ -9,9 +9,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated  # <-- Add IsAu
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import serializers
 from rest_framework import viewsets
-from .models import Book, UserBookList, BookProgress
-from .serializers import BookSerializer, UserBookListSerializer, BookProgressSerializer
-# from rest_framework import permissions  # <-- You can remove this line
+from .models import Book, UserBookList, BookProgress, BookClub, BookClubMembership, Notification, UserActivity
+from .serializers import BookSerializer, UserBookListSerializer, BookProgressSerializer, BookClubSerializer, BookClubMembershipSerializer, NotificationSerializer, UserActivitySerializer
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -48,17 +47,15 @@ class LoginView(APIView):
 
 
 class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all()
+    queryset = Book.objects.all().select_related()
     serializer_class = BookSerializer
 
 
 class UserBookListViewSet(viewsets.ModelViewSet):
-    queryset = UserBookList.objects.all()
     serializer_class = UserBookListSerializer
-    permission_classes = [IsAuthenticated]  # <-- Use IsAuthenticated directly
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Only show the logged-in user's list
         return UserBookList.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
@@ -66,13 +63,53 @@ class UserBookListViewSet(viewsets.ModelViewSet):
 
 
 class BookProgressViewSet(viewsets.ModelViewSet):
-    queryset = BookProgress.objects.all()
     serializer_class = BookProgressSerializer
-    permission_classes = [IsAuthenticated]  # <-- Use IsAuthenticated directly
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Only show the logged-in user's progress
         return BookProgress.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class BookClubViewSet(viewsets.ModelViewSet):
+    queryset = BookClub.objects.all()
+    serializer_class = BookClubSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+class BookClubMembershipViewSet(viewsets.ModelViewSet):
+    serializer_class = BookClubMembershipSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return BookClubMembership.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class NotificationViewSet(viewsets.ModelViewSet):
+    serializer_class = NotificationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class UserActivityViewSet(viewsets.ModelViewSet):
+    serializer_class = UserActivitySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return UserActivity.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

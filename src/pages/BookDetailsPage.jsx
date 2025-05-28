@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import bookmark from "../assets/bookmark.png";
@@ -33,6 +33,16 @@ export default function BookDetailsPage() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
 
+  // Ref for Chapters Table
+  const chaptersRef = useRef(null);
+
+  // Scroll to Chapters Table handler
+  const handleReadClick = () => {
+    if (chaptersRef.current) {
+      chaptersRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     const foundBook = allBooks.find((b) => b.id === Number(id));
     setBook(foundBook);
@@ -45,6 +55,17 @@ export default function BookDetailsPage() {
       </div>
     );
   }
+
+  // Place this above the Chapter 1 Section
+  const chapters = Array.from({ length: 19 }, (_, i) => {
+    const chapterNum = i + 1;
+    return {
+      number: chapterNum,
+      title: `Reflected in You: Chapter ${chapterNum}`,
+      date: "August 20, 2023",
+      pdfUrl: `/pdfs/chapter-${chapterNum}.pdf`, // Adjust path as needed
+    };
+  });
 
   return (
     <>
@@ -108,12 +129,29 @@ export default function BookDetailsPage() {
                 <p className="mb-4 border-l-4 border-[#917F74] pl-4 bg-white py-2">{book.description || "No description available."}</p>
                 {/* Action Buttons */}
                 <div className="flex gap-4 mb-4">
-                  <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-2 shadow hover:bg-[#445b70] transition">
-                    Want to Read
+                  <button
+                    className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-2 shadow hover:bg-[#445b70] transition"
+                    onClick={handleReadClick}
+                  >
+                    Read
                   </button>
                   <button
-                    className="bg-white text-[#617886] px-6 py-2 rounded-full font-semibold border border-[#617886] hover:border-[#617886] transition"
+                    className="bg-white text-[#617886] px-6 py-2 rounded-full font-semibold border border-[#617886] hover:border-[#617886] transition flex items-center gap-2"
+                    onClick={() => {
+                      // Scroll to chapters table and focus on audio column
+                      if (chaptersRef.current) {
+                        chaptersRef.current.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
                   >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <polygon points="6,4 16,10 6,16" />
+                    </svg>
                     Listen to Audiobook
                   </button>
                   {/* Favorites Circle Button */}
@@ -158,6 +196,62 @@ export default function BookDetailsPage() {
                 <div className="font-semibold">{book.author}</div>
                 <div className="text-gray-700">{book.authorBio || "No bio available."}</div>
               </div>
+            </div>
+            {/* Chapters Table - New Section */}
+            <div
+              className="mt-10 bg-white rounded-xl shadow p-0 overflow-x-auto"
+              ref={chaptersRef}
+            >
+              <div className="bg-[#d6eef4] text-white font-bold px-6 py-3 rounded-t-xl text-lg">
+                Chapters
+              </div>
+              <table className="min-w-full text-left">
+                <thead>
+                  <tr className="bg-[#f7f6f3] text-[#445b70]">
+                    <th className="px-6 py-3 font-semibold">Vol/Ch</th>
+                    <th className="px-6 py-3 font-semibold">Chapter Title</th>
+                    <th className="px-6 py-3 font-semibold">Release Date</th>
+                    <th className="px-6 py-3 font-semibold">Audio</th> {/* Added Audio column */}
+                  </tr>
+                </thead>
+                <tbody>
+                  {chapters.map((ch) => (
+                    <tr key={ch.number} className="border-b hover:bg-[#f3f1fa] text-[#617886]">
+                      <td className="px-6 py-3 font-bold">Ch. {ch.number}</td>
+                      <td className="px-6 py-3">
+                        <a
+                          href={ch.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#617886] hover:underline"
+                        >
+                          {ch.title}
+                        </a>
+                      </td>
+                      <td className="px-6 py-3">{ch.date}</td>
+                      <td className="px-6 py-3">
+                        {/* Audio play icon instead of "Listen" */}
+                        <a
+                          href={`/audios/chapter-${ch.number}.mp3`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#617886] hover:underline flex items-center"
+                          title="Play Audio"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <polygon points="6,4 16,10 6,16" />
+                          </svg>
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

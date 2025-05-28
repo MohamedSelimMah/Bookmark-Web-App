@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
-import { addBook } from "../services/bookService";
+import { getBooks, addBook, updateBook, deleteBook } from "../services/bookService";
 
 const myListBooks = [
   { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
@@ -18,10 +18,21 @@ const popularBooks = [
 ];
 
 export default function HomePage() {
-  // Assume books is an array of book objects fetched from your backend
-  const books = [
-    // Example: { id: 1, title: "Book Title" }
-  ];
+  const [books, setBooks] = useState([]);
+
+  // Fetch books on mount
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        // const token = localStorage.getItem("token");
+        const data = await getBooks(/*token*/);
+        setBooks(data);
+      } catch (e) {
+        alert("Failed to fetch books");
+      }
+    };
+    fetchBooks();
+  }, []);
 
   const handleAddBook = async () => {
     // Replace with a proper form in production!

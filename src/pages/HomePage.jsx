@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
+import { addBook } from "../services/bookService";
 
 const myListBooks = [
   { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
@@ -22,6 +23,22 @@ export default function HomePage() {
     // Example: { id: 1, title: "Book Title" }
   ];
 
+  const handleAddBook = async () => {
+    // Replace with a proper form in production!
+    const title = prompt("Book title?");
+    const author = prompt("Author?");
+    if (!title || !author) return;
+    try {
+      // If using JWT, get token from localStorage
+      // const token = localStorage.getItem("token");
+      await addBook({ title, author }, /*token*/);
+      alert("Book added!");
+      // Optionally refresh book list here
+    } catch (e) {
+      alert("Failed to add book");
+    }
+  };
+
   return (
     <>
       {/* Fixed Sidebar */}
@@ -32,7 +49,7 @@ export default function HomePage() {
       <main className="ml-20 min-h-screen bg-white overflow-y-auto">
         <TopBar />
         <HeroSection />
-        <BookList title="My List" books={myListBooks} showAdd/>
+        <BookList title="My List" books={myListBooks} showAdd onAddClick={handleAddBook} />
         <BookList title="Popular" books={popularBooks} />
         {/* Remove this block unless you plan to use it:
         <div>

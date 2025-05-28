@@ -3,7 +3,7 @@ import bookmark from "../assets/bookmark.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,16 +15,11 @@ export default function LoginForm() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/api/auth/login/", {
-        email,
-        password,
-      });
-      localStorage.setItem("accessToken", response.data.access);
+      await onLogin({ email, password });
       navigate("/");
     } catch (err) {
       setError(
-        err.response?.data?.detail ||
-        "Invalid credentials. Please try again."
+        err?.message || "Invalid credentials. Please try again."
       );
     } finally {
       setLoading(false);

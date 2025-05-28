@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import bookmark from "../assets/bookmark.png";
 
-export default function RegisterForm() {
+export default function RegisterForm({ onRegister }) {
   const [username, setUsername] = useState(""); // Add username state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,11 +20,7 @@ export default function RegisterForm() {
     }
     setLoading(true);
     try {
-      await axios.post("http://localhost:8000/api/auth/register/", {
-        username, // Send username
-        email,
-        password,
-      });
+      await onRegister({ username, email, password });
       navigate("/login");
     } catch (err) {
       setError("Registration failed. Please try again.");

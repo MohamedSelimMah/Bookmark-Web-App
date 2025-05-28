@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BookMark',           # Database name (must exist in MySQL)
         'USER': 'root',               # Your MySQL username
-        'PASSWORD': 'root',           # Your MySQL password
+        'PASSWORD': '0000',           # Your MySQL password
         'HOST': 'localhost',          # Or '127.0.0.1'
         'PORT': '3306',               # Default MySQL port
     }
@@ -143,3 +143,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server
     # Add your deployed frontend URL here
 ]
+

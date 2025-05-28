@@ -1,84 +1,167 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AudioBookPlayer from "../components/AudioBookPlayer";
-import axios from "axios";
+import Sidebar from "../components/Sidebar";
+import bookmark from "../assets/bookmark.png";
+import { FaSearch } from "react-icons/fa";
+import cover1 from "../assets/13596809.jpg";
+
+// Mock book data with extra fields for demo
+const allBooks = [
+  {
+    id: 1,
+    cover: cover1,
+    title: "Reflected in You",
+    author: "Sylvia Day",
+    progress: 70,
+    description: `Gideon Cross. As beautiful and flawless on the outside as he was damaged and tormented on the inside. He was a bright, scorching flame that singed me with the darkest of pleasures. I couldn't stay away. I didn't want to. He was my addiction... my every desire... mine.
+
+My past was as violent as his, and I was just as broken. We’d never work. It was too hard, too painful... except when it was perfect. Those moments when the driving hunger and desperate love were the most exquisite insanity.
+
+We were bound by our need. And our passion would take us beyond our limits to the sweetest, sharpest edge of obsession...`,
+    genres: ["Romance", "Fiction", "Adult"],
+    pages: 432,
+    published: "October 2, 2012",
+    rating: 4.1,
+    ratingsCount: 120000,
+    authorImg: "src/assets/author.jpg",
+    authorBio: "Sylvia Day is a bestselling author known for her romance novels.",
+  },
+  // ...other books
+];
 
 export default function BookDetailsPage() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchBook = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        // Replace with your actual backend endpoint
-        const response = await axios.get(`http://localhost:8000/api/books/${id}/`);
-        setBook(response.data);
-      } catch (err) {
-        setError("Failed to load book details.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBook();
+    const foundBook = allBooks.find((b) => b.id === Number(id));
+    setBook(foundBook);
   }, [id]);
 
-  if (loading) {
+  if (!book) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <span className="text-lg">Loading...</span>
+        <span className="text-red-600">Book not found.</span>
       </div>
     );
   }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="text-red-600">{error}</span>
-      </div>
-    );
-  }
-
-  if (!book) return null;
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <div className="flex flex-col md:flex-row gap-8 items-start">
-        <img
-          src={book.cover || "/placeholder.jpg"}
-          alt={book.title}
-          className="w-40 h-56 object-cover rounded-lg shadow"
-        />
-        <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
-          <p className="text-lg text-gray-600 mb-4">by {book.author}</p>
-          <p className="mb-6">{book.description}</p>
-          {/* Progress visualization */}
-          {typeof book.progress === "number" && (
-            <div className="mb-6">
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-sky-500 h-2 rounded-full"
-                  style={{ width: `${book.progress}%` }}
-                ></div>
-              </div>
-              <div className="text-xs text-right text-gray-500 mt-1">{book.progress}% completed</div>
-            </div>
-          )}
-          {/* Audiobook player */}
-          {book.audio_file && (
-            <AudioBookPlayer
-              audioSrc={book.audio_file}
-              cover={book.cover}
-              title={book.title}
-              author={book.author}
-            />
-          )}
-        </div>
+    <>
+      <div className="fixed top-0 left-0 h-screen w-20 z-10">
+        <Sidebar />
       </div>
-    </div>
+      <main className="ml-20 min-h-screen bg-white overflow-y-auto">
+        <div className="flex flex-col gap-2 py-6 px-10 bg-white">
+          {/* Top Row: Logo, Search, Button */}
+          <div className="flex items-center gap-6 mb-8">
+            {/* Logo/avatar */}
+            <div className="w-15 h-15 rounded-full bg-[#d6eef4] flex items-center justify-center overflow-hidden">
+              <img src={bookmark} alt="Bookmark Logo" className="w-16 h-16 object-contain" />
+            </div>
+            {/* Search Bar */}
+            <div className="flex items-center flex-1 bg-[#d6eef4] rounded-full px-6 py-3">
+              <FaSearch className="text-[#445b70] mr-3" />
+              <input
+                type="text"
+                placeholder="find book"
+                className="bg-transparent outline-none flex-1 text-white placeholder-white font-semibold"
+              />
+            </div>
+            {/* Search Button */}
+            <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-2 shadow hover:bg-[#445b70] transition">
+              search
+            </button>
+          </div>
+          <div className="max-w-5xl mx-auto p-8">
+            <div className="flex flex-col md:flex-row gap-10 bg-[#f7f6f3] rounded-xl shadow p-8">
+              {/* Book Cover and Rate Section */}
+              <div className="flex flex-col items-center">
+                <img
+                  src={book.cover || "/placeholder.jpg"}
+                  alt={book.title}
+                  className="w-60 h-100 object-cover rounded-lg shadow mb-4"
+                />
+                {/* Rate the Book */}
+                <div className="mt-2 w-full flex flex-col items-center">
+                  <div className="font-semibold mb-1" style={{ color: "#617886" }}>Rate this book</div>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        className="text-2xl cursor-pointer text-gray-300 hover:text-yellow-400 transition"
+                        // Add onClick logic here if you want to handle rating
+                      >★</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Book Info */}
+              <div className="flex-1">
+                <h1 className="text-4xl font-bold mb-2" style={{ color: "#917F74" }}>{book.title}</h1>
+                <p className="text-xl text-gray-700 mb-2">{book.author}</p>
+                <div className="flex items-center mb-4">
+                  <span className="text-yellow-500 text-2xl mr-2">★</span>
+                  <span className="font-semibold text-lg">{book.rating || "4.0"}</span>
+                  <span className="text-gray-500 ml-2">({book.ratingsCount || "100,000"} ratings)</span>
+                </div>
+                <p className="mb-4 border-l-4 border-[#917F74] pl-4 bg-white py-2">{book.description || "No description available."}</p>
+                {/* Action Buttons */}
+                <div className="flex gap-4 mb-4">
+                  <button className="bg-[#617886] text-white font-bold px-8 py-2 rounded-full ml-2 shadow hover:bg-[#445b70] transition">
+                    Want to Read
+                  </button>
+                  <button
+                    className="bg-white text-[#617886] px-6 py-2 rounded-full font-semibold border border-[#617886] hover:border-[#617886] transition"
+                  >
+                    Listen to Audiobook
+                  </button>
+                  {/* Favorites Circle Button */}
+                  <button
+                    className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-[#617886] text-[#617886] hover:bg-[#617886] hover:text-white transition"
+                    title="Add to Favorites"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-6 h-6" viewBox="0 0 20 20">
+                      <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                    </svg>
+                  </button>
+                </div>
+                {/* Book Info */}
+                <div className="text-sm text-gray-600 mb-2">
+                  <span>{book.pages || "400"} pages</span>
+                  <span className="mx-2">•</span>
+                  <span>Published {book.published || "2020"}</span>
+                </div>
+                {/* Progress Bar */}
+                {typeof book.progress === "number" && (
+                  <div className="mb-2">
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-sky-500 h-2 rounded-full"
+                        style={{ width: `${book.progress}%` }}
+                      ></div>
+                    </div>
+                    <div className="text-xs text-right text-gray-500 mt-1">{book.progress}% completed</div>
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* About the Author */}
+            <div className="mt-10 bg-[#f7f6f3] rounded-xl shadow p-6 flex items-center gap-6">
+              <img
+                src={book.authorImg || "/placeholder-author.jpg"}
+                alt={book.author}
+                className="w-20 h-20 object-cover rounded-full border-2 border-[#917F74]"
+              />
+              <div>
+                <div className="font-bold text-lg mb-1" style={{ color: "#917F74" }}>About the author</div>
+                <div className="font-semibold">{book.author}</div>
+                <div className="text-gray-700">{book.authorBio || "No bio available."}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

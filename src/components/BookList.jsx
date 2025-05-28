@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
 
 export default function BookList({ title, books, showAdd, onAddClick, color = "#917F74" }) {
@@ -10,7 +11,9 @@ export default function BookList({ title, books, showAdd, onAddClick, color = "#
       </div>
       <div className="flex gap-4">
         {books.map((book) => (
-          <BookCard key={book.id} {...book} />
+          <Link key={book.id} to={`/books/${book.id}`}>
+            <BookCard {...book} />
+          </Link>
         ))}
         {showAdd && <BookCard isAdd onClick={onAddClick} />}
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
@@ -16,6 +17,11 @@ const popularBooks = [
 ];
 
 export default function HomePage() {
+  // Assume books is an array of book objects fetched from your backend
+  const books = [
+    // Example: { id: 1, title: "Book Title" }
+  ];
+
   return (
     <>
       {/* Fixed Sidebar */}
@@ -28,6 +34,17 @@ export default function HomePage() {
         <HeroSection />
         <BookList title="My List" books={myListBooks} showAdd/>
         <BookList title="Popular" books={popularBooks} />
+        {/* Remove this block unless you plan to use it:
+        <div>
+          {books.map((book) => (
+            <Link key={book.id} to={`/books/${book.id}`}>
+              <div className="p-4 border rounded mb-2 hover:bg-gray-100 cursor-pointer">
+                {book.title}
+              </div>
+            </Link>
+          ))}
+        </div>
+        */}
       </main>
     </>
   );

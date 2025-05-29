@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
-import { getBooks, addBook, updateBook, deleteBook } from "../services/bookService";
+import { getBooks, addBook } from "../services/bookService";
 
 const myListBooks = [
   { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
@@ -35,16 +35,18 @@ export default function HomePage() {
   }, []);
 
   const handleAddBook = async () => {
-    // Replace with a proper form in production!
     const title = prompt("Book title?");
     const author = prompt("Author?");
     if (!title || !author) return;
     try {
-      // If using JWT, get token from localStorage
-      // const token = localStorage.getItem("token");
-      await addBook({ title, author }, /*token*/);
+      await addBook({
+        title,
+        author,
+        description: "",
+        cover_image: "",
+        audio_file: ""
+      }, /*token*/);
       alert("Book added!");
-      // Optionally refresh book list here
     } catch (e) {
       alert("Failed to add book");
     }
@@ -62,17 +64,7 @@ export default function HomePage() {
         <HeroSection />
         <BookList title="My List" books={myListBooks} showAdd onAddClick={handleAddBook} />
         <BookList title="Popular" books={popularBooks} />
-        {/* Remove this block unless you plan to use it:
-        <div>
-          {books.map((book) => (
-            <Link key={book.id} to={`/books/${book.id}`}>
-              <div className="p-4 border rounded mb-2 hover:bg-gray-100 cursor-pointer">
-                {book.title}
-              </div>
-            </Link>
-          ))}
-        </div>
-        */}
+        <BookList title="All Books" books={books} />
       </main>
     </>
   );

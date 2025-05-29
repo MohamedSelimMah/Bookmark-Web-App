@@ -4,6 +4,7 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import HomePage from "./pages/HomePage";
 import BookDetailsPage from "./pages/BookDetailsPage";
+import UserProfilePage from "./pages/userPage";
 
 function App() {
   const handleLogin = async (credentials) => {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterForm onRegister={handleRegister} />} />
         <Route path="/books/:id" element={<BookDetailsPage />} />
+        <Route path="/user" element={<UserProfilePage />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

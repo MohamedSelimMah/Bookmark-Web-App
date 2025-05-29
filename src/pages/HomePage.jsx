@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
-import { getBooks, addBook } from "../services/bookService";
+import { addBook } from "../services/bookService";
 
 const myListBooks = [
   { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
@@ -18,35 +18,22 @@ const popularBooks = [
 ];
 
 export default function HomePage() {
-  const [books, setBooks] = useState([]);
-
-  // Fetch books on mount
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        // const token = localStorage.getItem("token");
-        const data = await getBooks(/*token*/);
-        setBooks(data);
-      } catch (e) {
-        alert("Failed to fetch books");
-      }
-    };
-    fetchBooks();
-  }, []);
+  // Assume books is an array of book objects fetched from your backend
+  const books = [
+    // Example: { id: 1, title: "Book Title" }
+  ];
 
   const handleAddBook = async () => {
+    // Replace with a proper form in production!
     const title = prompt("Book title?");
     const author = prompt("Author?");
     if (!title || !author) return;
     try {
-      await addBook({
-        title,
-        author,
-        description: "",
-        cover_image: "",
-        audio_file: ""
-      }, /*token*/);
+      // If using JWT, get token from localStorage
+      // const token = localStorage.getItem("token");
+      await addBook({ title, author }, /*token*/);
       alert("Book added!");
+      // Optionally refresh book list here
     } catch (e) {
       alert("Failed to add book");
     }
@@ -64,7 +51,6 @@ export default function HomePage() {
         <HeroSection />
         <BookList title="My List" books={myListBooks} showAdd onAddClick={handleAddBook} />
         <BookList title="Popular" books={popularBooks} />
-        <BookList title="All Books" books={books} />
       </main>
     </>
   );

@@ -18,6 +18,14 @@ const popularBooks = [
   { id: 5, cover: "src/assets/images.jpg", title: "Twisted Love", author: "Ana Huang" },
 ];
 
+const categories = [
+  { name: "All" },
+  { name: "Romance" },
+  { name: "Fiction" },
+  { name: "Manga" },
+  { name: "Education" },
+];
+
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -46,10 +54,23 @@ export default function HomePage() {
       <div className="fixed top-0 left-0 h-screen w-20 z-10">
         <Sidebar />
       </div>
+      
       {/* Main Content */}
       <main className="ml-20 min-h-screen bg-white overflow-y-auto">
         <TopBar />
+        {/* Categories List moved here */}
+        <div className="flex gap-3 mt-5 justify-center">
+          {categories.map((cat) => (
+            <button
+              key={cat.name}
+              className="px-4 py-1 rounded-full bg-[#d6eef4] text-[#445b70] font-semibold hover:bg-[#617886] hover:text-white transition"
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
         <HeroSection />
+        
         <BookList title="My List" books={myListBooks} showAdd onAddClick={handleAddBook} />
         <BookList title="Popular" books={popularBooks} />
       </main>

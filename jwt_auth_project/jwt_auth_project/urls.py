@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls')),  # Use 'authentication' not 'accounts'
+    path('api/', include('authentication.urls')),
 ]
 
 INSTALLED_APPS = [

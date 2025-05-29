@@ -5,6 +5,7 @@ from .views import BookClubViewSet, BookClubMembershipViewSet
 from .views import NotificationViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views import UserActivityViewSet
+from . import views  # <-- Add this line
 
 router = DefaultRouter()
 router.register(r'books', BookViewSet, basename='book')
@@ -20,4 +21,5 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include(router.urls)),
+    path('books/', views.book_list, name='book-list'),
 ]

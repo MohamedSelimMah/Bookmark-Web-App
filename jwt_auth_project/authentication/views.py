@@ -11,6 +11,7 @@ from rest_framework import serializers
 from rest_framework import viewsets
 from .models import Book, UserBookList, BookProgress, BookClub, BookClubMembership, Notification, UserActivity
 from .serializers import BookSerializer, UserBookListSerializer, BookProgressSerializer, BookClubSerializer, BookClubMembershipSerializer, NotificationSerializer, UserActivitySerializer
+from rest_framework.decorators import api_view
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -112,3 +113,10 @@ class UserActivityViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+@api_view(['GET'])
+def book_list(request):
+    books = Book.objects.all().order_by('id')  # Add .order_by('id')
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)

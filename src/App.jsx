@@ -46,6 +46,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/my-list" element={<HomePage />} /> {/* Add this line */}
         <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterForm onRegister={handleRegister} />} />
         <Route path="/books/:id" element={<BookDetailsPage />} />

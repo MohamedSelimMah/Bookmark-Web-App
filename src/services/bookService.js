@@ -14,12 +14,8 @@ export async function addBook(bookData, token) {
 }
 
 // READ (all books)
-export async function getBooks(token) {
-  const response = await fetch(API_URL, {
-    headers: {
-      ...(token && { Authorization: `Bearer ${token}` }),
-    },
-  });
+export async function getBooks() {
+  const response = await fetch("http://localhost:8000/api/books/");
   if (!response.ok) throw new Error("Failed to fetch books");
   return response.json();
 }

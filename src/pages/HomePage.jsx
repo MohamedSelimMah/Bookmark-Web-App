@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
-import { addBook } from "../services/bookService";
+import { addBook, getBooks } from "../services/bookService";
 import BookFormModal from "../components/BookFormModal"; // <-- import
-
-const myListBooks = [
-  { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
-  { id: 2, cover: "src/assets/a0665e6c79eb920a_400x400ar.jpg", title: "Enwined with You", author: "Sylvia Day",progress: 50 },
-  { id: 3, cover: "src/assets/BaredToYou_cover_hires.jpg", title: "Bared To You", author: "Sylvia Day" , progress: 30},
-];
 
 const popularBooks = [
   { id: 4, cover: "src/assets/62047984.jpg", title: "Yellowface", author: "R.F. Kuang" },
@@ -28,6 +22,29 @@ const categories = [
 
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [myListBooks, setMyListBooks] = useState([]);
+
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        const books = await getBooks();
+        // If paginated, use books.results
+        const bookArray = Array.isArray(books) ? books : books.results;
+        setMyListBooks(
+          bookArray.map((book) => ({
+            id: book.id,
+            cover: book.cover_image || "src/assets/placeholder.jpg",
+            title: book.title,
+            author: book.author,
+            progress: book.progress || 0,
+          }))
+        );
+      } catch (e) {
+        console.error("Failed to fetch books", e);
+      }
+    }
+    fetchBooks();
+  }, []);
 
   const handleAddBook = () => {
     setModalOpen(true);
@@ -42,7 +59,17 @@ export default function HomePage() {
       await addBook(data);
       alert("Book added!");
       setModalOpen(false);
-      // Optionally refresh book list here
+      // Refresh book list after adding
+      const books = await getBooks();
+      setMyListBooks(
+        books.map((book) => ({
+          id: book.id,
+          cover: book.cover_image || "src/assets/placeholder.jpg",
+          title: book.title,
+          author: book.author,
+          progress: book.progress || 0,
+        }))
+      );
     } catch (e) {
       alert("Failed to add book");
     }

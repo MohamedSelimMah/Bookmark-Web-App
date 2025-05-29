@@ -1,13 +1,20 @@
-const API_URL = "http://127.0.0.1:8000/api/auth/books/";
+const API_URL = "http://127.0.0.1:8000/api/books/"; // <-- fix this line
 // CREATE
 export async function addBook(bookData, token) {
+  const formData = new FormData();
+  for (const key in bookData) {
+    if (bookData[key]) {
+      formData.append(key, bookData[key]);
+    }
+  }
+
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),
+      // Do NOT set Content-Type; browser will set it for FormData
     },
-    body: JSON.stringify(bookData),
+    body: formData,
   });
   if (!response.ok) throw new Error("Failed to add book");
   return response.json();
@@ -35,10 +42,7 @@ export async function getBook(id, token) {
 export async function updateBook(id, bookData, token) {
   const response = await fetch(`${API_URL}${id}/`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
-    },
+    headers: { "Content-Type": "application/json", ...(token && { Authorization: `Bearer ${token}` }) },
     body: JSON.stringify(bookData),
   });
   if (!response.ok) throw new Error("Failed to update book");

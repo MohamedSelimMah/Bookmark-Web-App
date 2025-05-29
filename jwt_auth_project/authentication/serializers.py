@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import Book, UserBookList, BookProgress, BookClub, BookClubMembership, Notification, UserActivity
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -76,3 +77,7 @@ class UserActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserActivity
         fields = '__all__'
+
+
+class BookCreateView(APIView):
+    parser_classes = [MultiPartParser, FormParser]

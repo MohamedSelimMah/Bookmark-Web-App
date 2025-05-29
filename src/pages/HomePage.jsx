@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import TopBar from "../components/TopBar";
 import HeroSection from "../components/HeroSection";
 import BookList from "../components/BookList";
 import { addBook } from "../services/bookService";
+import BookFormModal from "../components/BookFormModal"; // <-- import
 
 const myListBooks = [
   { id: 1, cover: "src/assets/13596809.jpg", title: "Reflected in You", author: "Sylvia Day", progress:70},
@@ -18,21 +19,21 @@ const popularBooks = [
 ];
 
 export default function HomePage() {
-  // Assume books is an array of book objects fetched from your backend
-  const books = [
-    // Example: { id: 1, title: "Book Title" }
-  ];
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const handleAddBook = async () => {
-    // Replace with a proper form in production!
-    const title = prompt("Book title?");
-    const author = prompt("Author?");
-    if (!title || !author) return;
+  const handleAddBook = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalSubmit = async (data) => {
     try {
-      // If using JWT, get token from localStorage
-      // const token = localStorage.getItem("token");
-      await addBook({ title, author }, /*token*/);
+      await addBook(data);
       alert("Book added!");
+      setModalOpen(false);
       // Optionally refresh book list here
     } catch (e) {
       alert("Failed to add book");
@@ -52,6 +53,11 @@ export default function HomePage() {
         <BookList title="My List" books={myListBooks} showAdd onAddClick={handleAddBook} />
         <BookList title="Popular" books={popularBooks} />
       </main>
+      <BookFormModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        onSubmit={handleModalSubmit}
+      />
     </>
   );
 }

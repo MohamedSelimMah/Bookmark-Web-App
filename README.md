@@ -1,28 +1,33 @@
-# Django Authentication API 
+# 📚 Bookmark Web App
 
-This project implements a simple authentication system to manage **user registration** and **login** functionality using Django.
+Welcome to **Bookmark** – your all-in-one platform to read, listen, and manage your favorite books! 🚀
 
-## Features
+---
 
-- **User Registration**: Allows users to register with necessary account details.
-- **User Login**: Handles user authentication and login process.
-- **API Driven**: Based on Django CBVs (Class-Based Views) for clean and modular code.
+## ✨ Features
 
-## Endpoints
+- 📖 **Read and Listen**: Enjoy books in both text and audio formats.
+- 🏷️ **Categories**: Browse by genre (Romance, Fiction, Manga, Education, and more).
+- 📝 **Add Your Books**: Upload your own books with cover images, audio, and PDFs.
+- ⭐ **Rate & Track Progress**: Rate books and track your reading progress.
+- 🧑‍💻 **User Authentication**: Register and log in securely.
+- 📋 **Personal Book List**: Manage your own reading list.
 
-The following endpoints are available:
+---
 
-1. **Register**
-   - **URL**: `/register/`
-   - **Method**: `POST`
-   - **Description**: Allows users to register by sending their details (e.g., username, email, password).
+## 🖼️ Screenshot
 
-2. **Login**
-   - **URL**: `/login/`
-   - **Method**: `POST`
-   - **Description**: Authenticates a user and returns a session or token for further API interactions.
+> **Add a screenshot of your app's main page here!**
+>
+> Place your screenshot image in the `public/` folder (e.g. `public/screenshot.png`) and use the following markdown:
+>
+> ```md
+> ![Bookmark Web App Screenshot](public/screenshot.png)
+> ```
 
-## Installation
+---
+
+## 🚀 Getting Started
 
 ### 1. Clone the Repository
 ```bash
@@ -30,35 +35,46 @@ git clone https://github.com/username/repo-name.git
 cd repo-name
 ```
 
-### 2. Create and Activate a Virtual Environment
+### 2. Backend Setup (Django)
 ```bash
-python -m venv env
-source env/bin/activate    # On Windows use: `env\Scripts\activate`
-```
-
-### 3. Install Dependencies
-```bash
+cd jwt_auth_project
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### 4. Run Migrations
-```bash
 python manage.py migrate
-```
-
-### 5. Start the Development Server
-```bash
 python manage.py runserver
 ```
 
-### 6. Test the Endpoints
-Use tools like [Postman](https://www.postman.com/) or [curl](https://curl.se/) to test the `/register/` and `/login/` endpoints.
+### 3. Frontend Setup (React + Vite)
+```bash
+cd ../  # Go back to project root
+npm install
+npm run dev
+```
 
-## Usage
+---
 
-- The **RegisterView** and **LoginView** are imported into `urls.py` and mapped directly to the respective endpoints to handle user actions.
-- Customize or extend the views to include token-based authentication or additional fields based on your project requirements.
+## 🔑 API Endpoints (Backend)
 
-## Contributions
+- **Register:** `POST /api/auth/register/`
+- **Login:** `POST /api/auth/login/`
+- **Books CRUD:** `/api/books/` (see backend docs)
 
-Contributions are welcome! Feel free to fork the repository and submit pull requests.
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, Tailwind CSS, Vite
+- **Backend:** Django, Django REST Framework, JWT Auth
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Fork the repo and submit a pull request. 💡
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
